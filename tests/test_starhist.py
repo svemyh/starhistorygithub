@@ -11,9 +11,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from starhistorygithub import auth, render
-from starhistorygithub.cache import Cache
-from starhistorygithub.github import (MAX_EXACT, AccessRestricted, Client, GitHubError,
+from starhist import auth, render
+from starhist.cache import Cache
+from starhist.github import (MAX_EXACT, AccessRestricted, Client, GitHubError,
                              Series, _even_pages)
 
 
@@ -51,9 +51,9 @@ class TestAuthPrecedence(unittest.TestCase):
 
     def test_starhist_env_beats_github_env(self):
         token, source = auth.resolve(
-            None, auth.NullStore(), env={"STARHISTORYGITHUB_TOKEN": "a", "GITHUB_TOKEN": "b"}
+            None, auth.NullStore(), env={"STARHIST_TOKEN": "a", "GITHUB_TOKEN": "b"}
         )
-        self.assertEqual((token, source), ("a", "$STARHISTORYGITHUB_TOKEN"))
+        self.assertEqual((token, source), ("a", "$STARHIST_TOKEN"))
 
     def test_store_used_when_no_explicit_or_env(self):
         store = auth.FileStore(path=Path(self.tmp.name) / "token")
@@ -222,12 +222,12 @@ class TestCache(unittest.TestCase):
 
 class TestRepoParsing(unittest.TestCase):
     def test_accepts_urls_and_bare_names(self):
-        from starhistorygithub.cli import _normalise
+        from starhist.cli import _normalise
         for given in ("o/r", "https://github.com/o/r", "github.com/o/r", "o/r/"):
             self.assertEqual(_normalise(given), "o/r")
 
     def test_rejects_malformed(self):
-        from starhistorygithub.cli import _normalise
+        from starhist.cli import _normalise
         for bad in ("justname", "a/b/c"):
             with self.assertRaises(ValueError):
                 _normalise(bad)

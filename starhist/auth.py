@@ -14,11 +14,11 @@ import subprocess
 from pathlib import Path
 from typing import Protocol
 
-SERVICE = "starhistorygithub"
+SERVICE = "starhist"
 ACCOUNT = "github-token"
 
 # Precedence, highest first. Explicit beats ambient beats stored beats borrowed.
-SOURCES = ("--token", "STARHISTORYGITHUB_TOKEN", "GITHUB_TOKEN", "stored", "gh CLI")
+SOURCES = ("--token", "STARHIST_TOKEN", "GITHUB_TOKEN", "stored", "gh CLI")
 
 
 class TokenStore(Protocol):
@@ -50,7 +50,7 @@ class KeychainStore:
         # -U updates in place when the entry already exists.
         _run(
             ["security", "add-generic-password", "-U", "-s", SERVICE, "-a", ACCOUNT,
-             "-w", token, "-D", "starhistorygithub github token"],
+             "-w", token, "-D", "starhist github token"],
             check=True,
         )
 
@@ -128,7 +128,7 @@ def resolve(
     env = os.environ if env is None else env
     if explicit:
         return explicit, "--token"
-    for var in ("STARHISTORYGITHUB_TOKEN", "GITHUB_TOKEN"):
+    for var in ("STARHIST_TOKEN", "GITHUB_TOKEN"):
         value = env.get(var)
         if value:
             return value, f"${var}"
@@ -150,7 +150,7 @@ def redact(token: str) -> str:
 
 def _config_dir() -> Path:
     base = os.environ.get("XDG_CONFIG_HOME")
-    return Path(base) / "starhistorygithub" if base else Path.home() / ".config" / "starhistorygithub"
+    return Path(base) / "starhist" if base else Path.home() / ".config" / "starhist"
 
 
 def _which(binary: str) -> bool:

@@ -1,10 +1,10 @@
-# starhistorygithub
+# starhist
 
 GitHub star-history charts from the terminal, with **multi-repo comparison on one axis**.
 
 ```bash
-pipx install git+https://github.com/svemyh/starhistorygithub
-starhistorygithub chart myorg/repo-a myorg/repo-b myorg/repo-c
+pipx install git+https://github.com/svemyh/star-history-cli
+starhist chart myorg/repo-a myorg/repo-b myorg/repo-c
 ```
 
 ![Six repos on one axis](docs/example-multi.svg)
@@ -23,22 +23,22 @@ chart**. This one puts them on a shared axis.
 Already use `gh`? Nothing to do, the token is borrowed automatically. Otherwise:
 
 ```bash
-starhistorygithub auth login                        # prompts, hidden input
-starhistorygithub auth status --repo myorg/myrepo   # who am I, and can I read this repo?
-starhistorygithub auth logout
+starhist auth login                        # prompts, hidden input
+starhist auth status --repo myorg/myrepo   # who am I, and can I read this repo?
+starhist auth logout
 ```
 
 Verified before storing, kept in the macOS Keychain or a `0600` file.
-Order: `--token` > `$STARHISTORYGITHUB_TOKEN` > `$GITHUB_TOKEN` > stored > `gh`.
+Order: `--token` > `$STARHIST_TOKEN` > `$GITHUB_TOKEN` > stored > `gh`.
 Scope: `public_repo` is enough.
 
 ## Usage
 
 ```bash
-starhistorygithub chart myorg/a myorg/b            # several repos, one axis
-starhistorygithub chart myorg/a myorg/b --type timeline   # aligned from each first star
-starhistorygithub chart myorg/a --dark --style clean
-starhistorygithub export myorg/a -f csv -o stars.csv
+starhist chart myorg/a myorg/b            # several repos, one axis
+starhist chart myorg/a myorg/b --type timeline   # aligned from each first star
+starhist chart myorg/a --dark --style clean
+starhist export myorg/a -f csv -o stars.csv
 ```
 
 | Flag | Default | |
@@ -50,7 +50,7 @@ starhistorygithub export myorg/a -f csv -o stars.csv
 | `--dark` | off | |
 | `--width` / `--height` | `800` / `533` | |
 | `--color` | palette | repeatable, in repo order |
-| `--no-cache` | off | curves cached 6h in `~/.cache/starhistorygithub` |
+| `--no-cache` | off | curves cached 6h in `~/.cache/starhist` |
 | `--no-attribution` | off | |
 
 Output is a self-contained SVG with the font embedded, and rendering is

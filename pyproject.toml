@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "starhistorygithub"
+name = "starhist"
 version = "0.1.0"
 description = "GitHub star-history charts from the terminal, with multi-repo comparison on one axis"
 readme = "README.md"
@@ -22,14 +22,14 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/svemyh/starhistorygithub"
-Issues = "https://github.com/svemyh/starhistorygithub/issues"
+Homepage = "https://github.com/svemyh/star-history-cli"
+Issues = "https://github.com/svemyh/star-history-cli/issues"
 
 [project.scripts]
-starhistorygithub = "starhistorygithub.cli:main"
+starhist = "starhist.cli:main"
 
 [tool.setuptools]
-packages = ["starhistorygithub"]
+packages = ["starhist"]
 
 [tool.setuptools.package-data]
-starhistorygithub = ["assets/*"]
+starhist = ["assets/*"]

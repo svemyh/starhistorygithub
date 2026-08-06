@@ -92,15 +92,15 @@ class Client:
                 "Authorization": f"Bearer {self._token}",
                 "Accept": accept,
                 "X-GitHub-Api-Version": "2022-11-28",
-                "User-Agent": "starhistorygithub",
+                "User-Agent": "starhist",
             },
         )
         if status == 401:
-            raise GitHubError("GitHub rejected the token (401). Run `starhistorygithub auth login`.")
+            raise GitHubError("GitHub rejected the token (401). Run `starhist auth login`.")
         if status == 403:
             raise GitHubError(
                 "GitHub returned 403. Either rate-limited, or the token lacks "
-                "access. Check `starhistorygithub auth status`."
+                "access. Check `starhist auth status`."
             )
         if status == 404:
             raise FileNotFoundError(path)
