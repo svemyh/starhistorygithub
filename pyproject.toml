@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "starhist"
+version = "0.1.0"
+description = "GitHub star-history charts from the terminal, with multi-repo comparison on one axis"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Sven Myhre", email = "sven@ara.so" }]
+keywords = ["github", "stars", "star-history", "chart", "svg", "cli"]
+classifiers = [
+  "Environment :: Console",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Utilities",
+]
+# No runtime dependencies, deliberately: this tool handles a GitHub token, and
+# an empty dependency tree is the whole security argument.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/svemyh/star-history-cli"
+Issues = "https://github.com/svemyh/star-history-cli/issues"
+
+[project.scripts]
+starhist = "starhist.cli:main"
+
+[tool.setuptools]
+packages = ["starhist"]
+
+[tool.setuptools.package-data]
+starhist = ["assets/*"]
