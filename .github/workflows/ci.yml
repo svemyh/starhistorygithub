@@ -23,4 +23,4 @@ jobs:
       - name: Package installs and the entry point runs
         run: |
           pip install .
-          starhist --version
+          starhistorygithub --version

@@ -63,4 +63,4 @@ class Cache:
 
 def _cache_dir() -> Path:
     base = os.environ.get("XDG_CACHE_HOME")
-    return Path(base) / "starhist" if base else Path.home() / ".cache" / "starhist"
+    return Path(base) / "starhistorygithub" if base else Path.home() / ".cache" / "starhistorygithub"

@@ -53,7 +53,7 @@ def _cmd_login(args) -> int:
         return 0
     store.set(token)
     print(f"Verified as {login}. Stored in {store.name}.")
-    print("Nothing else on this machine holds the token; `starhist auth logout` removes it.")
+    print("Nothing else on this machine holds the token; `starhistorygithub auth logout` removes it.")
     return 0
 
 
@@ -62,13 +62,13 @@ def _cmd_status(args) -> int:
     token, source = resolve(None, store)
     if not token:
         print("Not authenticated.")
-        print("Run `starhist auth login`, or install and run `gh auth login`.")
+        print("Run `starhistorygithub auth login`, or install and run `gh auth login`.")
         return 1
     print(f"Token:  {redact(token)}  (from {source})")
     client = Client(token)
     login = _whoami(client)
     if login is None:
-        print("Status: REJECTED by GitHub. Re-run `starhist auth login`.")
+        print("Status: REJECTED by GitHub. Re-run `starhistorygithub auth login`.")
         return 1
     print(f"User:   {login}")
     if args.repo:
@@ -105,7 +105,7 @@ def _cmd_chart(args) -> int:
         xkcd=args.style == "xkcd",
         timeline=args.type == "timeline",
         colors=[c if c.startswith("#") else f"#{c}" for c in args.color] or None,
-        attribution="" if args.no_attribution else "Made with svemyh/star-history-cli",
+        attribution="" if args.no_attribution else "Made with svemyh/starhistorygithub",
     )
     svg = render(series, opts)
     out = Path(args.output or _default_name(args.repos, args.dark))
@@ -152,7 +152,7 @@ def _cmd_cache_clear(args) -> int:
 def _collect(args) -> list[Series]:
     token, source = resolve(getattr(args, "token", None), _store(args))
     if not token:
-        _fail("Not authenticated. Run `starhist auth login` (or `gh auth login`).")
+        _fail("Not authenticated. Run `starhistorygithub auth login` (or `gh auth login`).")
     client = Client(token)
     cache = Cache(ttl=timedelta(0) if args.no_cache else timedelta(hours=6))
     out = []
@@ -230,13 +230,13 @@ def _fail(message: str) -> None:
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="starhist",
+        prog="starhistorygithub",
         description="GitHub star-history charts from the terminal, including "
                     "multi-repo comparison on one axis.",
         epilog="Since 2026-06-30 GitHub limits stargazer data to repo admins and "
                "collaborators, so you can only chart repos you own or collaborate on.",
     )
-    parser.add_argument("--version", action="version", version=f"starhist {__version__}")
+    parser.add_argument("--version", action="version", version=f"starhistorygithub {__version__}")
     subs = parser.add_subparsers(dest="command")
 
     auth = subs.add_parser("auth", help="manage the stored GitHub token")
